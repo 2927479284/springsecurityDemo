@@ -1,45 +1,82 @@
 package com.ddbh.service.impl;
 
+import com.ddbh.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Service
+
+@Data
+@NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
+
+    private User user;
+
+    public UserDetailsImpl(User user) {
+        this.user = user;
+    }
+
+    /**
+     * 权限
+     * @return
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
+    /**
+     * 用户密码
+     * @return
+     */
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
+    /**
+     * 用户账号
+     * @return
+     */
     @Override
     public String getUsername() {
-        return null;
+        return user.getUserName();
     }
 
+    /**
+     * 是否未过期
+     * @return
+     */
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
-
+    /**
+     * 是否未被锁定
+     * @return
+     */
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
-
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
-
+    /**
+     * 是否已启用
+     * @return
+     */
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
