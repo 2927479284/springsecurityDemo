@@ -43,4 +43,5 @@ public class LoginUserServiceImpl implements LoginUserService {
         redisClient.set("com.ddbh.login",jwt,10L, TimeUnit.HOURS);
         return AjaxResult.success().put("token",jwt);
     }
+
 }
