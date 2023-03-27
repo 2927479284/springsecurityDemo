@@ -36,7 +36,7 @@ public class LoginUserServiceImpl implements LoginUserService {
             return AjaxResult.error("登录失败/账号或者密码错误");
         }
         UserDetailsImpl userDetails = (UserDetailsImpl) authenticate.getPrincipal();
-        String s = userDetails.getUser().getId().toString();
+        String s = userDetails.getUser().getUserId().toString();
         //生成jwt
         String jwt = JwtUtil.createJWT(s);
         //存进redis

@@ -1,7 +1,7 @@
 package com.ddbh.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ddbh.domain.User;
+import com.ddbh.domain.SysUser;
 import com.ddbh.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         //1.通过传入的用户名进行查询
-        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUserName, s));
+        SysUser user = userMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUserName, s));
         if (user == null){
             throw  new RuntimeException("该账号不存在");
         }

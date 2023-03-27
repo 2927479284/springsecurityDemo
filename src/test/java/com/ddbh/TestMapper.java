@@ -1,13 +1,14 @@
 package com.ddbh;
 
 
-import com.ddbh.domain.User;
+import com.ddbh.domain.SysUser;
 import com.ddbh.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -20,22 +21,22 @@ public class TestMapper{
     private UserMapper userMapper;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void test1(){
-        List<User> users = userMapper.selectList(null);
+        List<SysUser> users = userMapper.selectList(null);
         System.out.println(users);
     }
 
     @Test
     public void test02(){
         System.out.println("test 02方法执行成功");
-        String encode = bCryptPasswordEncoder.encode("123456789");
-        //$2a$10$DRX2xp4JzS7zmgZYQcUG6uV1E1YyAtTXsiEp8bQ1WTNxGM1NhqGza
+        String encode = passwordEncoder.encode("123456");
+        //$2a$10$5K9tp9c0ogbOzhRBBW0/FOMcPgxMSAzCGtMtqqfF9UCgOFpjSzb9a
         System.out.println(encode);
         // 1.原文  2.密文
-        boolean b = bCryptPasswordEncoder.matches("123456789", "$10$DRX2xp4JzS7zmgZYQcUG6uV1E1YyAtTXsiEp8bQ1WTNxGM1NhqGza");
+        boolean b = passwordEncoder.matches("123456789", "$2a$10$5K9tp9c0ogbOzhRBBW0/FOMcPgxMSAzCGtMtqqfF9UCgOFpjSzb9a");
         System.out.println(b);
     }
 }

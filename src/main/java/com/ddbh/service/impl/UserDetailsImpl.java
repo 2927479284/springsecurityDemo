@@ -1,7 +1,6 @@
 package com.ddbh.service.impl;
 
-import com.ddbh.domain.User;
-import lombok.AllArgsConstructor;
+import com.ddbh.domain.SysUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,9 +13,9 @@ import java.util.Collection;
 @NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private User user;
+    private SysUser user;
 
-    public UserDetailsImpl(User user) {
+    public UserDetailsImpl(SysUser user) {
         this.user = user;
     }
 

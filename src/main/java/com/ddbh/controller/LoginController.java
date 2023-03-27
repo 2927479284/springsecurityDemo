@@ -1,15 +1,12 @@
 package com.ddbh.controller;
 
-import com.ddbh.domain.User;
+import com.ddbh.domain.SysUser;
 import com.ddbh.domain.dto.UserLoginDto;
 import com.ddbh.mapper.UserMapper;
 import com.ddbh.service.LoginUserService;
 import com.ddbh.utils.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +14,7 @@ import java.util.List;
  * 用户登录控制层
  */
 @RestController
+@RequestMapping("/user")
 public class LoginController {
 
 
@@ -35,7 +33,7 @@ public class LoginController {
 
     @GetMapping("/test")
     public void test(){
-        List<User> users = userMapper.selectList(null);
+        List<SysUser> users = userMapper.selectList(null);
         System.out.println(users);
         System.out.println("test url访问成功");
     }
