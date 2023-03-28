@@ -40,7 +40,7 @@ public class LoginUserServiceImpl implements LoginUserService {
         //生成jwt
         String jwt = JwtUtil.createJWT(s);
         //存进redis
-        redisClient.set("com.ddbh.login",jwt,10L, TimeUnit.HOURS);
+        redisClient.set("com:ddbh:login:"+userDetails.getUser().getUserId(),userDetails.getUser(),10L, TimeUnit.HOURS);
         return AjaxResult.success().put("token",jwt);
     }
 
