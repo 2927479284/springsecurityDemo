@@ -6,6 +6,7 @@ import com.ddbh.mapper.UserMapper;
 import com.ddbh.service.LoginUserService;
 import com.ddbh.utils.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class LoginController {
 
 
     @GetMapping("/test")
+    @PreAuthorize("hasAuthority('demo')")
     public void test(){
         List<SysUser> users = userMapper.selectList(null);
         System.out.println(users);

@@ -4,9 +4,12 @@ import com.ddbh.domain.SysUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -19,18 +22,33 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
+    public UserDetailsImpl(SysUser user, List<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
+    }
+
+    /**
+     * 查询出来的权限集合
+     */
+    List<String> permissions;
+
+    List<SimpleGrantedAuthority> authorities;
     /**
      * 权限
-     * @return
+     * @return Collection
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if (authorities!=null){
+            return authorities;
+        }
+        authorities = permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return authorities;
     }
 
     /**
      * 用户密码
-     * @return
+     * @return String
      */
     @Override
     public String getPassword() {
@@ -39,7 +57,7 @@ public class UserDetailsImpl implements UserDetails {
 
     /**
      * 用户账号
-     * @return
+     * @return String
      */
     @Override
     public String getUsername() {
@@ -48,7 +66,7 @@ public class UserDetailsImpl implements UserDetails {
 
     /**
      * 是否未过期
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isAccountNonExpired() {
@@ -56,7 +74,7 @@ public class UserDetailsImpl implements UserDetails {
     }
     /**
      * 是否未被锁定
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isAccountNonLocked() {
@@ -64,7 +82,7 @@ public class UserDetailsImpl implements UserDetails {
     }
     /**
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isCredentialsNonExpired() {
@@ -72,7 +90,7 @@ public class UserDetailsImpl implements UserDetails {
     }
     /**
      * 是否已启用
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isEnabled() {
